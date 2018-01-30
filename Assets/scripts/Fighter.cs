@@ -16,6 +16,8 @@ public class Fighter : MonoBehaviour {
 		}
 	}
 
+	public GameObject ProjectilePrefab;
+
 	public KeyCode LeftKey;
 	public KeyCode RightKey;
 
@@ -26,6 +28,7 @@ public class Fighter : MonoBehaviour {
 
 	void Update () {
 		MovementLogic ();
+		FiringLogic ();
 		
 	}
 
@@ -41,6 +44,13 @@ public class Fighter : MonoBehaviour {
 		}
 
 		transform.position = transform.position + speed * Time.deltaTime;
+	}
+
+	void FiringLogic() {
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			GameObject projectile = (GameObject)Instantiate (ProjectilePrefab);
+			projectile.transform.position = transform.position;
+		}
 	}
 
 
