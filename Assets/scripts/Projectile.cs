@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour {
 
+	public GameObject FireImg;
+	public float TimeUntilNextFrame;
+	public float TimeBetweenFrames = 10000.0f;
+
+	void Start() {
+		FireImg.SetActive (true);
+	}
+
 	void Update () {
 		MovementLogic ();
 		IsEnemyHit ();
@@ -19,7 +27,6 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void IsEnemyHit() {
-		// TODO:   check if onscreen then destroy projectile
 		foreach (Enemy enemy in EnemyMgr.inst.AllEnemies) {
 			Vector3 toEnemy = enemy.transform.position - transform.position;
 			float distance = toEnemy.magnitude;
@@ -27,6 +34,16 @@ public class Projectile : MonoBehaviour {
 			if (distance <= .3f) {
 				enemy.HandleProjectileImpact ();
 				Destroy (gameObject);
+			}
+
+			TimeUntilNextFrame -= Time.deltaTime;
+
+			if (TimeUntilNextFrame <= 0) {
+				TimeUntilNextFrame = TimeBetweenFrames;
+				FireImg.SetActive (false);
+				Debug.Log ("here");
+			} else {
+				FireImg.SetActive (true);
 			}
 		}
 

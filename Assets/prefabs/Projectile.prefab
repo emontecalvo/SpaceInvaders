@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97ef6e0fcf2fa4ff1b7f8201f16bbe4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireImg: {fileID: 1907746148866494}
 --- !u!212 &212517874299358322
 SpriteRenderer:
   m_ObjectHideFlags: 1
