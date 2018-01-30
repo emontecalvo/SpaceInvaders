@@ -22,4 +22,10 @@ public class EnemyMgr : MonoBehaviour {
 		AllEnemies.Add (enemy);
 
 	}
+
+	public void Unregister (Enemy enemy) {
+		AllEnemies.Remove (enemy);
+	}
+
+
 }

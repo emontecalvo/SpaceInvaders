@@ -25,4 +25,10 @@ public class Enemy : MonoBehaviour {
 //			Destroy (gameObject);
 //		}
 	}
+
+	void OnDestroy() {
+		if (EnemyMgr.inst != null) {
+			EnemyMgr.inst.Unregister (this);
+		}
+	}
 }
