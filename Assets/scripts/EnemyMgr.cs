@@ -27,5 +27,29 @@ public class EnemyMgr : MonoBehaviour {
 		AllEnemies.Remove (enemy);
 	}
 
+	void Update() {
+		CheckPosition ();
+	}
+
+	void CheckPosition() {
+		foreach (Enemy enemy in AllEnemies) {
+			if (enemy.transform.position.x > enemy.RightWall && !enemy.GoingLeft) {
+				foreach (Enemy enemySub in AllEnemies) {
+					Vector3 sub = enemySub.transform.position;
+					sub.y -= 1f;
+					enemySub.transform.position = sub;
+					enemySub.GoingLeft = true;
+				}
+			} else if (enemy.transform.position.x <= enemy.LeftWall && enemy.GoingLeft) {
+				foreach (Enemy enemySub2 in AllEnemies) {
+					Vector3 sub2 = enemySub2.transform.position;
+					sub2.y -= 1f;
+					enemySub2.transform.position = sub2;
+					enemySub2.GoingLeft = false;
+				}
+			}
+		}
+	}
+
 
 }

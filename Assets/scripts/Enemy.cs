@@ -6,10 +6,10 @@ public class Enemy : MonoBehaviour {
 
 	public Vector3 EnemyPosition;
 
-	float LeftWall = -8.5f;
-	float RightWall = 8.5f;
+	public float LeftWall = -8.5f;
+	public float RightWall = 8.5f;
 
-	bool GoingLeft = false;
+	public bool GoingLeft = false;
 
 
 	void Start () {
@@ -27,17 +27,9 @@ public class Enemy : MonoBehaviour {
 
 		if (myPosition.x < RightWall && !GoingLeft) {
 			myPosition.x += .1f;
-		} else if (myPosition.x >= RightWall && !GoingLeft) {
-			myPosition.y -= 1f;
-			myPosition.x -= .1f;
-			GoingLeft = true;
 		} else if (myPosition.x > LeftWall && GoingLeft) {
 			myPosition.x -= .1f;
-		} else if (myPosition.x <= LeftWall && GoingLeft) {
-			myPosition.y -= 1f;
-			myPosition.x += .1f;
-			GoingLeft = false;
-		}
+		} 
 
 		transform.position = myPosition;
 	}
