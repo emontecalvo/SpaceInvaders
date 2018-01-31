@@ -7,15 +7,26 @@ public class Projectile : MonoBehaviour {
 
 	public GameObject FireImg;
 	public float TimeUntilNextFrame;
-	public float TimeBetweenFrames = 10000.0f;
+	float TimeBetweenFrames = 0.1f;
 
 	void Start() {
 		FireImg.SetActive (true);
+		TimeUntilNextFrame = TimeBetweenFrames;
 	}
 
 	void Update () {
 		MovementLogic ();
 		IsEnemyHit ();
+		TimeUntilNextFrame -= Time.deltaTime;
+
+		if (TimeUntilNextFrame <= 0) {
+			TimeUntilNextFrame = TimeBetweenFrames;
+			if (FireImg.activeSelf) {
+				FireImg.SetActive (false);
+			} else {
+				FireImg.SetActive (true);
+			}
+		}
 	}
 
 	void MovementLogic () {
@@ -34,16 +45,6 @@ public class Projectile : MonoBehaviour {
 			if (distance <= .3f) {
 				enemy.HandleProjectileImpact ();
 				Destroy (gameObject);
-			}
-
-			TimeUntilNextFrame -= Time.deltaTime;
-
-			if (TimeUntilNextFrame <= 0) {
-				TimeUntilNextFrame = TimeBetweenFrames;
-				FireImg.SetActive (false);
-				Debug.Log ("here");
-			} else {
-				FireImg.SetActive (true);
 			}
 		}
 
