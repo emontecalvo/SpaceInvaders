@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour {
 
 	public bool GoingLeft = false;
 
-	public GameObject ExplodeParticle;
+	public GameObject ExplodeParticlePrefab;
 	public GameObject EnemySprite;
 
 	float TimeUntilNextFrame;
@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 		EnemyMgr.inst.Register (this);
 		EnemyPosition = transform.position;
-		ExplodeParticle.SetActive (false);
 		EnemySprite.SetActive (true);
 	}
 
@@ -43,23 +42,13 @@ public class Enemy : MonoBehaviour {
 
 
 	public void HandleProjectileImpact() {
-		EnemySprite.SetActive (false);
-		ExplodeParticle.SetActive (true);
-
-		TimeUntilNextFrame -= Time.deltaTime;
-		Debug.Log (TimeUntilNextFrame);
-
-		if (TimeUntilNextFrame >= -.05) {
-			TimeUntilNextFrame = TimeBetweenFrames;
-			ExplodeParticle.SetActive (false);
-			Destroy (gameObject);
-		}
 
 
-//		CurrentHitPoints -= 1;
-//		if (CurrentHitPoints == 0) {
-//			Destroy (gameObject);
-//		}
+		GameObject projectile = (GameObject)Instantiate (ExplodeParticlePrefab);
+		projectile.transform.position = transform.position;
+
+		Destroy (gameObject);
+	
 	}
 
 	void OnDestroy() {
